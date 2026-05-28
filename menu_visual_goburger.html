@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú GO! Burger</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #CC0000;
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+  }
+
+  .page {
+    width: 1080px;
+    min-height: 1080px;
+    margin: 0 auto;
+    background: #CC0000;
+    position: relative;
+    overflow: hidden;
+    padding: 40px;
+  }
+
+  /* Decorative circles */
+  .deco-circle-1 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 60px solid rgba(255,200,0,0.08);
+    top: -100px; right: -100px;
+  }
+  .deco-circle-2 {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 40px solid rgba(255,255,255,0.05);
+    bottom: 60px; left: -60px;
+  }
+  .deco-line {
+    position: absolute;
+    height: 6px;
+    background: #FFE000;
+    width: 100%;
+    left: 0;
+  }
+  .deco-line.top { top: 0; }
+  .deco-line.bottom { bottom: 0; }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+  .logo-box {
+    background: #FFE000;
+    border-radius: 16px;
+    padding: 14px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .logo-go {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 64px;
+    color: #CC0000;
+    line-height: 0.9;
+  }
+  .logo-excl {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 64px;
+    color: #CC0000;
+    line-height: 0.9;
+  }
+  .logo-burger {
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: #CC0000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .header-text h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: #FFE000;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .header-text p {
+    color: rgba(255,255,255,0.85);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0 14px;
+  }
+  .section-title .bar {
+    width: 6px;
+    height: 32px;
+    background: #FFE000;
+    border-radius: 3px;
+  }
+  .section-title h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    color: #FFE000;
+    letter-spacing: 2px;
+  }
+
+  /* MENU GRID */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .menu-card {
+    background: rgba(0,0,0,0.25);
+    border: 1.5px solid rgba(255,224,0,0.3);
+    border-radius: 14px;
+    padding: 16px 18px;
+    position: relative;
+  }
+  .menu-card .cat-label {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #FFE000;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .menu-card .cat-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,224,0,0.25);
+  }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .item-name {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .item-price {
+    color: #FFE000;
+    font-size: 14px;
+    font-weight: 900;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin-left: 8px;
+  }
+  .item-desc {
+    color: rgba(255,255,255,0.55);
+    font-size: 11px;
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* PROMO BADGE */
+  .promo-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #FFE000;
+    color: #CC0000;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: rgba(0,0,0,0.3);
+    border-radius: 14px;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    border: 1px solid rgba(255,224,0,0.2);
+  }
+  .footer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .footer-icon {
+    font-size: 22px;
+  }
+  .footer-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .footer-value {
+    color: #FFE000;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+  .footer-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="deco-line top"></div>
+  <div class="deco-line bottom"></div>
+  <div class="deco-circle-1"></div>
+  <div class="deco-circle-2"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-box">
+      <div style="display:flex;align-items:flex-start;">
+        <span class="logo-go">GO</span>
+        <span class="logo-excl">!</span>
+      </div>
+      <span class="logo-burger">Burger</span>
+    </div>
+    <div class="header-text">
+      <h1>NUESTRO MENÚ</h1>
+      <p>Barrio 10 de Agosto · Nelson López 7-25</p>
+    </div>
+  </div>
+
+  <!-- HAMBURGUESAS -->
+  <div class="section-title">
+    <div class="bar"></div>
+    <h2>🍔 HAMBURGUESAS Y COMBOS</h2>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <div class="cat-label">Clásicas</div>
+      <div class="menu-item">
+        <div><span class="item-name">Burguer Clásica</span><span class="item-desc">Combo c/ papas + refresco</span></div>
+        <span class="item-price">$3.75</span>
+      </div>
+      <div class="menu-item">
+        <div><span class="item-name">Burguer Doble</span><span class="item-desc">Doble carne + doble queso</span></div>
+        <span class="item-price">$4.99</span>
+      </div>
+      <div class="menu-item">
+        <div><span class="item-name">Champiburger</span><span class="item-desc">Champiñones + huevo + tocineta</span></div>
+        <span class="item-price">$5.25</span>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="promo-badge">⭐ Especiales</div>
+      <div class="cat-label">Premium</div>
+      <div class="menu-item">
+        <div><span class="item-name">Especial Burger</span><span class="item-desc">Res + pollo + tocineta</span></div>
+        <span class="item-price">$5.99</span>
+      </div>
+      <div class="menu-item">
+        <div><span class="item-name">Rancho Burger</span><span class="item-desc">Doble carne + chorizo</span></div>
+        <span class="item-price">$5.99</span>
+      </div>
+      <div class="menu-item">
+        <div><span class="item-name">Burger FULL</span><span class="item-desc">Todo incluido, la más cargada</span></div>
+        <span class="item-price">$6.50</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOS COLUMNAS: PAPAS + HOT DOGS | LOMOS + POPCORN -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+
+    <!-- PAPAS Y SALCHIPAPAS -->
+    <div class="menu-card">
+      <div class="cat-label">🥔 Papas y Salchipapas</div>
+      <div class="menu-item"><div><span class="item-name">Salchipapa</span></div><span class="item-price">$1.99</span></div>
+      <div class="menu-item"><div><span class="item-name">Doble Salchipapa</span></div><span class="item-price">$2.50</span></div>
+      <div class="menu-item"><div><span class="item-name">Papicarne / Choripapa</span></div><span class="item-price">$2.50</span></div>
+      <div class="menu-item"><div><span class="item-name">Papiqueso / Papipollo</span></div><span class="item-price">$2.50-$3.50</span></div>
+      <div class="menu-item"><div><span class="item-name">Papipollo Mixto</span></div><span class="item-price">$3.99</span></div>
+    </div>
+
+    <!-- HOT DOGS -->
+    <div class="menu-card">
+      <div class="cat-label">🌭 Hot Dogs</div>
+      <div class="menu-item"><div><span class="item-name">Hotdog Simple</span><span class="item-desc">Pan + salchicha</span></div><span class="item-price">$1.99</span></div>
+      <div class="menu-item"><div><span class="item-name">Hotdog Especial</span><span class="item-desc">Con papas + refresco</span></div><span class="item-price">$3.25</span></div>
+      <div class="menu-item"><div><span class="item-name">Hotdog Combo GO!</span><span class="item-desc">2 hotdogs + 2 papas + 2 refrescos</span></div><span class="item-price">$5.99</span></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+
+    <!-- LOMOS -->
+    <div class="menu-card">
+      <div class="cat-label">🥩 Lomos a la Plancha</div>
+      <div class="menu-item"><div><span class="item-name">Lomo Champiñón</span></div><span class="item-price">$3.25</span></div>
+      <div class="menu-item"><div><span class="item-name">Lomo Queso</span></div><span class="item-price">$3.75</span></div>
+      <div class="menu-item"><div><span class="item-name">Lomo Especial</span></div><span class="item-price">$4.25</span></div>
+      <div class="menu-item"><div><span class="item-name">Lomo Mixto / Lomo GO!</span></div><span class="item-price">$4.25-$4.99</span></div>
+    </div>
+
+    <!-- POLLO -->
+    <div class="menu-card">
+      <div class="cat-label">🍗 Pollo</div>
+      <div class="menu-item"><div><span class="item-name">Popcorn XL</span><span class="item-desc">Pechuga crocante + papas</span></div><span class="item-price">$3.25</span></div>
+      <div class="menu-item"><div><span class="item-name">Popcorn XXL</span><span class="item-desc">+ arroz</span></div><span class="item-price">$3.75</span></div>
+      <div class="menu-item"><div><span class="item-name">Presa Combo I</span><span class="item-desc">Broaster + papas + ensalada</span></div><span class="item-price">$2.75</span></div>
+      <div class="menu-item"><div><span class="item-name">Presa Combo II</span><span class="item-desc">2 presas</span></div><span class="item-price">$4.50</span></div>
+    </div>
+  </div>
+
+  <!-- ALITAS -->
+  <div class="section-title">
+    <div class="bar"></div>
+    <h2>🍗 ALITAS — PROMO 2x1</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:24px;">
+    <div class="menu-card" style="text-align:center;padding:14px 10px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFE000;">2x1 Pequeño</div>
+      <div style="color:white;font-size:13px;margin:4px 0;">Pagas 5 · Llevas 10</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#FFE000;">$7.25</div>
+    </div>
+    <div class="menu-card" style="text-align:center;padding:14px 10px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFE000;">2x1 Mediano</div>
+      <div style="color:white;font-size:13px;margin:4px 0;">Pagas 7 · Llevas 14</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#FFE000;">$10.50</div>
+    </div>
+    <div class="menu-card" style="text-align:center;padding:14px 10px;border-color:rgba(255,224,0,0.6);">
+      <div class="promo-badge">Popular</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFE000;">2x1 Grande</div>
+      <div style="color:white;font-size:13px;margin:4px 0;">Pagas 10 · Llevas 20</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#FFE000;">$14.99</div>
+    </div>
+    <div class="menu-card" style="text-align:center;padding:14px 10px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFE000;">2x1 Familiar</div>
+      <div style="color:white;font-size:13px;margin:4px 0;">Pagas 15 · Llevas 30</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#FFE000;">$21.99</div>
+    </div>
+  </div>
+  <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+    <span style="font-size:20px;">🗓️</span>
+    <span style="color:#FFE000;font-weight:900;font-size:13px;">MARTES Y JUEVES:</span>
+    <span style="color:white;font-size:13px;">+2 alitas GRATIS en cualquier combo 2x1</span>
+  </div>
+  <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:10px 16px;margin-bottom:20px;">
+    <span style="color:rgba(255,255,255,0.7);font-size:12px;">Sabores: BBQ · Miel y Mostaza · Limón y Pimienta · BBQ Picante · Maracuyá · Broaster</span>
+  </div>
+
+  <!-- PAPAS MIXTAS -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px;">
+    <div class="menu-card" style="text-align:center;">
+      <div class="cat-label" style="justify-content:center;">🥔 Papas Mixtas</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;">MIXTA L</div>
+      <div style="color:rgba(255,255,255,0.6);font-size:11px;margin:4px 0;">Papas + carne + salchicha</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FFE000;">$3.25</div>
+    </div>
+    <div class="menu-card" style="text-align:center;">
+      <div class="cat-label" style="justify-content:center;">🥔 Papas Mixtas</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;">MIXTA XL</div>
+      <div style="color:rgba(255,255,255,0.6);font-size:11px;margin:4px 0;">+ huevo</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FFE000;">$3.99</div>
+    </div>
+    <div class="menu-card" style="text-align:center;">
+      <div class="cat-label" style="justify-content:center;">🥔 Papas Mixtas</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;">MIXTA XXL</div>
+      <div style="color:rgba(255,255,255,0.6);font-size:11px;margin:4px 0;">+ huevo + chorizo + queso</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FFE000;">$4.75</div>
+    </div>
+  </div>
+
+  <!-- COMBO GO! ESPECIAL -->
+  <div style="background:rgba(255,224,0,0.12);border:2px solid #FFE000;border-radius:16px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#FFE000;line-height:1;">COMBO GO! FAMILIAR</div>
+      <div style="color:white;font-size:14px;margin-top:6px;">2 Hamburguesas Dobles · 2 Papas Fritas · 2 Refrescos</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#FFE000;line-height:1;">$8.99</div>
+      <div style="color:rgba(255,255,255,0.7);font-size:12px;">¡La mejor opción para compartir!</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-item">
+      <span class="footer-icon">📍</span>
+      <span class="footer-label">Dirección</span>
+      <span class="footer-value">Nelson López 7-25</span>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-item">
+      <span class="footer-icon">📱</span>
+      <span class="footer-label">WhatsApp</span>
+      <span class="footer-value">096-894-7936</span>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-item">
+      <span class="footer-icon">🕐</span>
+      <span class="footer-label">Horario</span>
+      <span class="footer-value">Barrio 10 de Agosto</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
