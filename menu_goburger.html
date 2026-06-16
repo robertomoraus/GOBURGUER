@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Menú GO! Burger</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #CC0000;
+  --yellow: #FFE000;
+  --dark: #111;
+  --card-bg: rgba(0,0,0,0.22);
+  --card-border: rgba(255,224,0,0.25);
+  --text-muted: rgba(255,255,255,0.6);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--red);
+  font-family: 'Nunito', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+  background: var(--red);
+  padding: 18px 16px 14px;
+  border-bottom: 5px solid var(--yellow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo-box {
+  background: var(--yellow);
+  border-radius: 10px;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.logo-go { font-family:'Bebas Neue'; font-size: 36px; color: var(--red); line-height:0.9; }
+.logo-b  { font-size: 10px; font-weight:900; color: var(--red); letter-spacing:2px; text-transform:uppercase; }
+.header-text h1 { font-family:'Bebas Neue'; font-size:26px; color:var(--yellow); letter-spacing:1px; line-height:1; }
+.header-text p  { font-size:11px; font-weight:700; color:rgba(255,255,255,0.75); letter-spacing:.5px; text-transform:uppercase; margin-top:2px; }
+
+/* NAV TABS */
+.nav-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 12px 16px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-tabs::-webkit-scrollbar { display:none; }
+.tab-btn {
+  background: rgba(0,0,0,0.2);
+  border: 1.5px solid rgba(255,224,0,0.25);
+  border-radius: 50px;
+  padding: 7px 14px;
+  font-family:'Nunito';
+  font-size: 12px;
+  font-weight:900;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-btn.active, .tab-btn:active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--red);
+}
+
+/* CONTENT */
+.content { padding: 0 16px 100px; }
+
+.section { display: none; }
+.section.active { display: block; }
+
+/* SECTION HEADER */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 0 12px;
+}
+.section-header .bar { width:4px; height:28px; background:var(--yellow); border-radius:2px; flex-shrink:0; }
+.section-header h2 { font-family:'Bebas Neue'; font-size:24px; color:var(--yellow); letter-spacing:1px; }
+
+/* PRODUCT CARDS */
+.product-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.product-card.featured { border-color: rgba(255,224,0,0.7); background:rgba(255,224,0,0.08); }
+.product-info { flex: 1; }
+.product-name { font-size:15px; font-weight:900; color:#fff; margin-bottom:3px; line-height:1.2; }
+.product-desc { font-size:11.5px; color:var(--text-muted); line-height:1.4; }
+.product-includes { font-size:11px; color:rgba(255,224,0,0.8); font-weight:700; margin-top:4px; }
+.product-price {
+  font-family:'Bebas Neue';
+  font-size:28px;
+  color:var(--yellow);
+  line-height:1;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.badge {
+  display:inline-block;
+  background:var(--yellow);
+  color:var(--red);
+  font-size:9px;
+  font-weight:900;
+  padding:2px 7px;
+  border-radius:20px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+/* ALITAS COMBOS */
+.alitas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.alita-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+}
+.alita-card.popular { border-color: rgba(255,224,0,0.7); background:rgba(255,224,0,0.08); }
+.alita-title { font-family:'Bebas Neue'; font-size:18px; color:var(--yellow); line-height:1; margin-bottom:4px; }
+.alita-detail { font-size:11px; color:var(--text-muted); margin-bottom:6px; line-height:1.3; }
+.alita-price { font-family:'Bebas Neue'; font-size:30px; color:#fff; line-height:1; }
+
+/* PROMO BAR */
+.promo-bar {
+  background: rgba(0,0,0,0.25);
+  border: 1.5px solid rgba(255,224,0,0.3);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.promo-bar .icon { font-size:20px; flex-shrink:0; }
+.promo-bar .txt strong { color:var(--yellow); font-size:13px; display:block; }
+.promo-bar .txt span  { color:rgba(255,255,255,0.7); font-size:12px; }
+
+/* SABORES */
+.sabores-bar {
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+.sabores-bar p { font-size:11.5px; color:var(--text-muted); line-height:1.5; }
+.sabores-bar strong { color:rgba(255,224,0,0.9); }
+
+/* FOOTER */
+.footer-info {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.92);
+  border-top: 3px solid var(--red);
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+.footer-info .fi { text-align:center; }
+.footer-info .fi .label { font-size:9px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:.5px; }
+.footer-info .fi .val   { font-size:13px; font-weight:900; color:var(--yellow); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-box">
+    <div class="logo-go">GO!</div>
+    <span class="logo-b">Burger</span>
+  </div>
+  <div class="header-text">
+    <h1>NUESTRO MENÚ</h1>
+    <p>Barrio 10 de Agosto · Nelson López 7-25</p>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('hamburguesas')">🍔 Hamburguesas</button>
+  <button class="tab-btn" onclick="showTab('alitas')">🍗 Alitas</button>
+  <button class="tab-btn" onclick="showTab('papas')">🥔 Papas</button>
+  <button class="tab-btn" onclick="showTab('hotdogs')">🌭 Hot Dogs</button>
+  <button class="tab-btn" onclick="showTab('lomos')">🥩 Lomos</button>
+  <button class="tab-btn" onclick="showTab('pollo')">🍗 Pollo</button>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- HAMBURGUESAS -->
+  <div id="hamburguesas" class="section active">
+    <div class="section-header"><div class="bar"></div><h2>🍔 HAMBURGUESAS</h2></div>
+
+    <div class="product-card">
+      <div class="product-info">
+        <div class="product-name">Burguer Clásica</div>
+        <div class="product-desc">Carne res, jamón, queso cheddar, vegetales, papas paja</div>
+        <div class="product-includes">✅ Incluye Papas + Refresco Pepsi 300ml</div>
+      </div>
+      <div class="product-price">$2.75</div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-info">
+        <div class="product-name">Burguer Doble</div>
+        <div class="product-desc">Doble carne, doble queso, jamón, vegetales, papas paja</div>
+        <div class="product-includes">✅ Incluye Papas + Refresco Pepsi 300ml</div>
+      </div>
+      <div class="product-price">$3.50</div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-info">
+        <div class="product-name">Champiburger</div>
+        <div class="product-desc">Res, jamón, queso, champiñones, huevo, tocineta, vegetales, papas paja</div>
+        <div class="product-includes">✅ Incluye Papas + Refresco Pepsi 300ml</div>
+      </div>
+      <div class="product-price">$4.00</div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-info">
+        <div class="product-name">Especial Burger</div>
+        <div class="product-desc">Res + pollo plancha, jamón, queso, huevo, tocineta, vegetales, papas paja</div>
+        <div class="product-includes">✅ Incluye Papas + Refresco Pepsi 300ml</div>
+      </div>
+      <div class="product-price">$4.50</div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-info">
+        <div class="product-name">Rancho Burger</div>
+        <div class="product-desc">Doble res, chorizo, jamón, queso, huevo, tocineta, vegetales, papas paja</div>
+        <div class="product-includes">✅ Incluye Papas + Refresco Pepsi 300ml</div>
+      </div>
+      <div class="product-price">$4.50</div>
+    </div>
+
+    <div class="product-card featured">
+      <div class="product-info">
+        <div class="badge">⭐ La más completa</div>
+        <div class="product-name">Burger FULL</div>
+        <div class="product-desc">Res + pollo + chorizo + champiñones + jamón + queso + huevo + tocineta</div>
+        <div class="product-includes">✅ Incluye Papas + Refresco Pepsi 300ml</div>
+      </div>
+      <div class="product-price">$4.99</div>
+    </div>
+
+    <div class="product-card" style="border-color:rgba(255,224,0,0.6);background:rgba(255,224,0,0.1);">
+      <div class="product-info">
+        <div class="badge">🔥 Para 2</div>
+        <div class="product-name">Combo GO!</div>
+        <div class="product-desc">2 Hamburguesas Dobles + 2 Papas + 2 Refrescos Pepsi</div>
+      </div>
+      <div class="product-price">$7.00</div>
+    </div>
+
+    <div class="sabores-bar" style="margin-top:8px;">
+      <p><strong>Salsas incluidas:</strong> Tomate · Mayo · Ají · Mostaza<br>
+      <strong>Opcionales:</strong> Queso · Tocineta</p>
+    </div>
+  </div>
+
+  <!-- ALITAS -->
+  <div id="alitas" class="section">
+    <div class="section-header"><div class="bar"></div><h2>🍗 ALITAS</h2></div>
+
+    <div class="alitas-grid">
+      <div class="alita-card">
+        <div class="alita-title">5 Alitas</div>
+        <div class="alita-detail">Papas fritas incluidas<br>1 sabor a elección</div>
+        <div class="alita-price">$3.50</div>
+      </div>
+      <div class="alita-card">
+        <div class="alita-title">8 Alitas</div>
+        <div class="alita-detail">Papas fritas incluidas<br>2 sabores a elección</div>
+        <div class="alita-price">$4.99</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="padding-top:8px;"><div class="bar"></div><h2>🔥 COMBOS 2x1</h2></div>
+
+    <div class="alitas-grid">
+      <div class="alita-card">
+        <div class="alita-title">2x1 PEQUEÑO</div>
+        <div class="alita-detail">Pagas 5 · Llevas 10<br>Papas + Ensalada · 2 sabores</div>
+        <div class="alita-price">$5.50</div>
+      </div>
+      <div class="alita-card">
+        <div class="alita-title">2x1 MEDIANO</div>
+        <div class="alita-detail">Pagas 7 · Llevas 14<br>Papas + Ensalada · 2 sabores</div>
+        <div class="alita-price">$7.99</div>
+      </div>
+      <div class="alita-card popular">
+        <div class="badge">Popular</div>
+        <div class="alita-title">2x1 GRANDE</div>
+        <div class="alita-detail">Pagas 10 · Llevas 20<br>Papas + Ensalada · 4 sabores</div>
+        <div class="alita-price">$11.50</div>
+      </div>
+      <div class="alita-card">
+        <div class="alita-title">2x1 FAMILIAR</div>
+        <div class="alita-detail">Pagas 15 · Llevas 30<br>Papas + Ensalada · 4 sabores</div>
+        <div class="alita-price">$16.99</div>
+      </div>
+    </div>
+
+    <div class="promo-bar">
+      <span class="icon">🗓️</span>
+      <div class="txt">
+        <strong>MARTES Y JUEVES</strong>
+        <span>+2 alitas GRATIS en cualquier combo 2x1</span>
+      </div>
+    </div>
+
+    <div class="sabores-bar">
+      <p><strong>Sabores disponibles:</strong> BBQ · Miel y Mostaza · Limón y Pimienta · BBQ Picante · Maracuyá · Broaster (sin salsa)</p>
+    </div>
+  </div>
+
+  <!-- PAPAS -->
+  <div id="papas" class="section">
+    <div class="section-header"><div class="bar"></div><h2>🥔 PAPAS Y SALCHIPAPAS</h2></div>
+
+    <div class="product-card"><div class="product-info"><div class="product-name">Salchipapa</div><div class="product-desc">Papas fritas + salchicha</div></div><div class="product-price">$1.50</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Doble Salchipapa</div><div class="product-desc">Papas + doble salchicha</div></div><div class="product-price">$1.99</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Papicarne</div><div class="product-desc">Papas + carne picada sazonada</div></div><div class="product-price">$1.75</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Choripapa</div><div class="product-desc">Papas + chorizo</div></div><div class="product-price">$1.75</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Papiqueso</div><div class="product-desc">Papas + queso cheddar fundido</div></div><div class="product-price">$1.75</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Papiqueso Mixta</div><div class="product-desc">Papas + queso + tocineta + salchicha</div></div><div class="product-price">$2.99</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Papipollo</div><div class="product-desc">Papas + pollo plancha troceado + queso</div></div><div class="product-price">$2.75</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Papipollo Mixto</div><div class="product-desc">Papas + pollo plancha + tocineta</div></div><div class="product-price">$2.99</div></div>
+
+    <div class="section-header" style="padding-top:8px;"><div class="bar"></div><h2>🥔 PAPAS MIXTAS</h2></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Mixta L</div><div class="product-desc">Papas fritas + carne res picada + salchicha</div></div><div class="product-price">$2.50</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Mixta XL</div><div class="product-desc">Papas + carne + salchicha + huevo</div></div><div class="product-price">$3.00</div></div>
+    <div class="product-card featured"><div class="product-info"><div class="badge">⭐ La más cargada</div><div class="product-name">Mixta XXL</div><div class="product-desc">Papas + carne + salchicha + huevo + chorizo + queso cheddar</div></div><div class="product-price">$3.50</div></div>
+
+    <div class="sabores-bar" style="margin-top:8px;"><p><strong>Salsas:</strong> Tomate · Mayo · Ají · Mostaza &nbsp;|&nbsp; <strong>Opcionales:</strong> Queso · Tocineta</p></div>
+  </div>
+
+  <!-- HOT DOGS -->
+  <div id="hotdogs" class="section">
+    <div class="section-header"><div class="bar"></div><h2>🌭 HOT DOGS</h2></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Hotdog Simple</div><div class="product-desc">Pan + salchicha + vegetales a elección</div><div class="product-includes">Tomate · Cebolla · Lechuga</div></div><div class="product-price">$1.50</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Hotdog Especial</div><div class="product-desc">Hotdog + Papas Fritas</div><div class="product-includes">✅ Incluye Pepsi 300ml</div></div><div class="product-price">$2.50</div></div>
+    <div class="product-card featured"><div class="product-info"><div class="badge">🔥 Para 2</div><div class="product-name">Hotdog Combo GO!</div><div class="product-desc">2 Hotdogs + 2 Papas + 2 Pepsi 300ml</div></div><div class="product-price">$4.50</div></div>
+    <div class="sabores-bar" style="margin-top:8px;"><p><strong>Salsas:</strong> Tomate · Mayo · Ají · Mostaza &nbsp;|&nbsp; <strong>Vegetales:</strong> Tomate · Cebolla · Lechuga</p></div>
+  </div>
+
+  <!-- LOMOS -->
+  <div id="lomos" class="section">
+    <div class="section-header"><div class="bar"></div><h2>🥩 LOMOS A LA PLANCHA</h2></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Lomo Champiñón</div><div class="product-desc">Lomo res + champiñones</div><div class="product-includes">✅ Papas + Ensalada</div></div><div class="product-price">$2.50</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Lomo Queso</div><div class="product-desc">Lomo res + queso cheddar fundido</div><div class="product-includes">✅ Papas + Ensalada</div></div><div class="product-price">$2.75</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Lomo Especial</div><div class="product-desc">Lomo res + queso + tocineta</div><div class="product-includes">✅ Papas + Ensalada</div></div><div class="product-price">$3.25</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Lomo Mixto</div><div class="product-desc">Lomo res + pollo plancha</div><div class="product-includes">✅ Papas + Ensalada</div></div><div class="product-price">$3.25</div></div>
+    <div class="product-card featured"><div class="product-info"><div class="badge">⭐ El completo</div><div class="product-name">Lomo GO!</div><div class="product-desc">Lomo res + pollo + queso + tocineta</div><div class="product-includes">✅ Papas + Ensalada</div></div><div class="product-price">$3.75</div></div>
+    <div class="sabores-bar" style="margin-top:8px;"><p><strong>Salsas:</strong> Tomate · Mayo · Ají · Mostaza &nbsp;|&nbsp; <strong>Opcionales:</strong> Tocineta · Queso</p></div>
+  </div>
+
+  <!-- POLLO -->
+  <div id="pollo" class="section">
+    <div class="section-header"><div class="bar"></div><h2>🍗 POPCORN CROCANTE</h2></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Popcorn XL</div><div class="product-desc">Trozos de pechuga crocante + papas fritas</div></div><div class="product-price">$2.50</div></div>
+    <div class="product-card featured"><div class="product-info"><div class="badge">⭐ Más popular</div><div class="product-name">Popcorn XXL</div><div class="product-desc">Trozos de pechuga crocante + papas + arroz</div></div><div class="product-price">$2.75</div></div>
+
+    <div class="section-header" style="padding-top:8px;"><div class="bar"></div><h2>🍗 POLLO BROASTER</h2></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Presa Combo I</div><div class="product-desc">1 presa (pierna/pospierna) broaster</div><div class="product-includes">✅ Papas + Ensalada</div></div><div class="product-price">$2.00</div></div>
+    <div class="product-card"><div class="product-info"><div class="product-name">Presa Combo II</div><div class="product-desc">2 presas (pierna/pospierna) broaster</div><div class="product-includes">✅ Papas + Ensalada</div></div><div class="product-price">$3.50</div></div>
+    <div class="sabores-bar" style="margin-top:8px;"><p><strong>Salsas:</strong> Tomate · Mayo · Ají · Mostaza &nbsp;|&nbsp; <strong>Opcionales:</strong> Tocineta · Queso</p></div>
+  </div>
+
+</div><!-- /content -->
+
+<!-- FOOTER -->
+<div class="footer-info">
+  <div class="fi"><div class="label">📍 Dirección</div><div class="val">Nelson López 7-25</div></div>
+  <div class="fi"><div class="label">📱 WhatsApp</div><div class="val">096-894-7936</div></div>
+  <div class="fi"><div class="label">📍 Barrio</div><div class="val">10 de Agosto</div></div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

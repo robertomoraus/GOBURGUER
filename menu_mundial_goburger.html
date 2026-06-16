@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>GO! Burger Mundialista</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #CC0000;
+  --yellow: #FFE000;
+  --dark: #111;
+  --card-bg: #1a1a1a;
+  --text-muted: rgba(255,255,255,0.6);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: var(--dark); font-family:'Nunito',sans-serif; color:#fff; overflow-x:hidden; }
+
+/* HERO */
+.hero {
+  background: var(--red);
+  padding: 20px 16px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after { content:''; position:absolute; bottom:0; left:0; right:0; height:5px; background:var(--yellow); }
+.hero-deco { position:absolute; font-size:120px; opacity:.07; right:-10px; top:-20px; line-height:1; user-select:none; }
+.hero-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; position:relative; z-index:2; }
+.logo-box { background:var(--yellow); border-radius:10px; padding:6px 12px; display:flex; flex-direction:column; align-items:center; }
+.logo-go  { font-family:'Bebas Neue'; font-size:34px; color:var(--red); line-height:.9; }
+.logo-b   { font-size:10px; font-weight:900; color:var(--red); letter-spacing:2px; text-transform:uppercase; }
+.dates-badge {
+  background: rgba(0,0,0,0.3);
+  border: 1.5px solid rgba(255,224,0,0.4);
+  border-radius: 50px;
+  padding: 6px 14px;
+  text-align:center;
+}
+.dates-badge .d-label { font-size:10px; color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:.5px; }
+.dates-badge .d-dates { font-family:'Bebas Neue'; font-size:16px; color:var(--yellow); letter-spacing:1px; line-height:1.1; }
+
+.hero-content { position:relative; z-index:2; }
+.hero-tag { background:var(--yellow); color:var(--red); font-size:11px; font-weight:900; padding:3px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:1.5px; display:inline-block; margin-bottom:10px; }
+.hero h1 { font-family:'Bebas Neue'; font-size:54px; color:var(--yellow); line-height:.9; letter-spacing:2px; }
+.hero h1 span { color:#fff; }
+.hero p { color:rgba(255,255,255,0.8); font-size:13px; font-weight:700; margin-top:8px; text-transform:uppercase; letter-spacing:.5px; }
+
+/* BODY */
+.body { padding: 0 16px 24px; }
+
+.section-label {
+  font-family:'Bebas Neue';
+  font-size:12px;
+  letter-spacing:3px;
+  color:rgba(255,255,255,0.35);
+  text-transform:uppercase;
+  padding: 20px 0 12px;
+  display:flex; align-items:center; gap:10px;
+}
+.section-label::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.08); }
+
+/* COMBO CARDS */
+.combo-grid { display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:4px; }
+.combo-card {
+  background: var(--card-bg);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.combo-card.featured { border-color:var(--yellow); background:#1f1a00; }
+.combo-emoji { font-size:32px; flex-shrink:0; line-height:1; }
+.combo-info { flex:1; }
+.combo-badge { background:var(--red); color:#fff; font-size:9px; font-weight:900; padding:2px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; display:inline-block; margin-bottom:5px; }
+.combo-card.featured .combo-badge { background:var(--yellow); color:var(--red); }
+.combo-title { font-family:'Bebas Neue'; font-size:20px; color:var(--yellow); line-height:1; margin-bottom:4px; letter-spacing:.5px; }
+.combo-desc { font-size:12px; color:var(--text-muted); line-height:1.4; }
+.combo-price { font-family:'Bebas Neue'; font-size:32px; color:#fff; line-height:1; white-space:nowrap; flex-shrink:0; }
+
+/* PROMO CARDS */
+.promo-2col { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:4px; }
+.promo-card {
+  border-radius:14px;
+  padding:16px 14px;
+  position:relative;
+  overflow:hidden;
+}
+.promo-card.red  { background:var(--red); }
+.promo-card.yellow { background:var(--yellow); }
+.promo-card .pc-icon { font-size:32px; display:block; margin-bottom:8px; }
+.promo-card.red h3    { font-family:'Bebas Neue'; font-size:18px; color:var(--yellow); line-height:1; margin-bottom:6px; }
+.promo-card.red p     { font-size:11.5px; color:rgba(255,255,255,0.85); line-height:1.4; }
+.promo-card.yellow h3 { font-family:'Bebas Neue'; font-size:18px; color:var(--red); line-height:1; margin-bottom:6px; }
+.promo-card.yellow p  { font-size:11.5px; color:rgba(0,0,0,0.7); line-height:1.4; }
+.promo-deco { position:absolute; font-size:60px; opacity:.08; right:-8px; bottom:-8px; user-select:none; }
+
+/* GOL COUNTER */
+.gol-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:4px; }
+.gol-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  padding:14px 8px;
+  text-align:center;
+}
+.gol-card.gol3 { border-color:var(--red); background:#1f0000; }
+.gol-num  { font-family:'Bebas Neue'; font-size:38px; color:var(--yellow); line-height:1; }
+.gol-card.gol3 .gol-num { color:var(--red); }
+.gol-label { font-size:9px; text-transform:uppercase; letter-spacing:1.5px; color:rgba(255,255,255,0.4); margin:3px 0 6px; }
+.gol-prize { font-size:12px; font-weight:900; color:#fff; line-height:1.2; }
+.gol-card.gol3 .gol-prize { color:var(--yellow); }
+
+/* CAMISETA BANNER */
+.camiseta-banner {
+  background: linear-gradient(135deg, #1a1a1a 60%, #2a1a00);
+  border: 2px solid var(--yellow);
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:4px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.cam-emoji { font-size:44px; flex-shrink:0; }
+.cam-text h3 { font-family:'Bebas Neue'; font-size:22px; color:var(--yellow); line-height:1; margin-bottom:5px; }
+.cam-text p  { font-size:12px; color:rgba(255,255,255,0.7); line-height:1.4; }
+.cam-disc { margin-left:auto; text-align:center; flex-shrink:0; }
+.cam-disc .dn { font-family:'Bebas Neue'; font-size:44px; color:var(--yellow); line-height:1; }
+.cam-disc .dl { font-size:10px; font-weight:900; color:#fff; text-transform:uppercase; letter-spacing:.5px; }
+
+/* HAPPY HOUR */
+.happy-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius:14px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.hh-icon { font-size:36px; flex-shrink:0; }
+.hh-text { flex:1; }
+.hh-text h3 { font-family:'Bebas Neue'; font-size:20px; color:var(--yellow); letter-spacing:.5px; margin-bottom:4px; }
+.hh-text p  { font-size:12px; color:rgba(255,255,255,0.65); line-height:1.4; }
+.hh-badge { background:var(--red); border-radius:50px; padding:10px 14px; text-align:center; flex-shrink:0; }
+.hh-badge .hb1 { font-family:'Bebas Neue'; font-size:20px; color:#fff; line-height:1; }
+.hh-badge .hb2 { font-size:10px; color:rgba(255,255,255,0.8); text-transform:uppercase; letter-spacing:.5px; }
+
+/* FOOTER */
+.footer-dark {
+  background: #0a0a0a;
+  border-top: 3px solid var(--red);
+  padding: 14px 16px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  margin-top:24px;
+}
+.fd-item .fd-label { font-size:9px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:.5px; }
+.fd-item .fd-val   { font-size:13px; font-weight:900; color:var(--yellow); }
+
+/* WA BUTTON */
+.wa-btn {
+  display:block;
+  background:var(--red);
+  color:#fff;
+  text-decoration:none;
+  text-align:center;
+  font-family:'Bebas Neue';
+  font-size:18px;
+  letter-spacing:2px;
+  padding:14px;
+  margin:16px 0 0;
+  border-radius:12px;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-deco">⚽</div>
+  <div class="hero-top">
+    <div class="logo-box">
+      <div class="logo-go">GO!</div>
+      <span class="logo-b">Burger</span>
+    </div>
+    <div class="dates-badge">
+      <div class="d-label">⚽ Temporada</div>
+      <div class="d-dates">11 JUN — 19 JUL</div>
+      <div class="d-label">MUNDIAL 2026</div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">⭐ Producto Exclusivo</div>
+    <h1>GO! BURGER<br><span>MUNDIALISTA</span></h1>
+    <p>¡Ven a ver el partido con las mejores promos del barrio!</p>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="body">
+
+  <!-- COMBOS -->
+  <div class="section-label">⚽ Combos Exclusivos del Mundial</div>
+  <div class="combo-grid">
+    <div class="combo-card">
+      <div class="combo-emoji">🍔</div>
+      <div class="combo-info">
+        <div class="combo-title">COMBO PRIMER TIEMPO</div>
+        <div class="combo-desc">1 Burguer Doble + Papas + Refresco. ¡Para arrancar el partido!</div>
+      </div>
+      <div class="combo-price">$3.50</div>
+    </div>
+
+    <div class="combo-card featured">
+      <div class="combo-emoji">⚽</div>
+      <div class="combo-info">
+        <div class="combo-badge">🔥 El Más Pedido</div>
+        <div class="combo-title">COMBO MUNDIALISTA GO!</div>
+        <div class="combo-desc">2 Burger Dobles + 2 Papas + 2 Refrescos. ¡Con tu parche!</div>
+      </div>
+      <div class="combo-price">$7.00</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-emoji">🍗</div>
+      <div class="combo-info">
+        <div class="combo-title">COMBO ALITAS MUNDIALISTAS</div>
+        <div class="combo-desc">2x1 Grande (pagas 10, llevas 20 alitas) + Papas + Ensalada. ¡El del campeón!</div>
+      </div>
+      <div class="combo-price">$11.50</div>
+    </div>
+  </div>
+
+  <!-- PROMOS DINÁMICAS -->
+  <div class="section-label">🎯 Promociones en Tiempo Real</div>
+  <div class="promo-2col">
+    <div class="promo-card red">
+      <span class="pc-icon">⚽</span>
+      <h3>GOL = PAPAS GRATIS</h3>
+      <p>Cada gol marcado = papas gratis para todos los que estén en el local.</p>
+      <div class="promo-deco">🎉</div>
+    </div>
+    <div class="promo-card yellow">
+      <span class="pc-icon">🏆</span>
+      <h3>SI TU SELE GANA...</h3>
+      <p>Cupón de descuento especial para tu próxima visita. ¡Muéstralo en caja!</p>
+      <div class="promo-deco">⚽</div>
+    </div>
+  </div>
+
+  <!-- GOL COUNTER -->
+  <div class="section-label">🏅 Premio por Goles del Partido</div>
+  <div class="gol-row">
+    <div class="gol-card">
+      <div class="gol-num">1</div>
+      <div class="gol-label">Gol</div>
+      <div class="gol-prize">🍟 Papas Gratis</div>
+    </div>
+    <div class="gol-card">
+      <div class="gol-num" style="color:#fff;">2</div>
+      <div class="gol-label">Goles</div>
+      <div class="gol-prize">🥤 Refresco Gratis</div>
+    </div>
+    <div class="gol-card gol3">
+      <div class="gol-num">3+</div>
+      <div class="gol-label">Goles</div>
+      <div class="gol-prize">🎉 Salchipapa Gratis</div>
+    </div>
+  </div>
+
+  <!-- CAMISETA -->
+  <div class="section-label">👕 Promo Camiseta</div>
+  <div class="camiseta-banner">
+    <div class="cam-emoji">👕</div>
+    <div class="cam-text">
+      <h3>VEN CON TU CAMISETA</h3>
+      <p>De cualquier selección. Muéstrala en caja y activa tu promo mundialista.</p>
+    </div>
+    <div class="cam-disc">
+      <div class="dn">10%</div>
+      <div class="dl">descuento</div>
+    </div>
+  </div>
+
+  <!-- HAPPY HOUR -->
+  <div class="section-label">🕕 Happy Hour Futbolero</div>
+  <div class="happy-card">
+    <div class="hh-icon">🕕</div>
+    <div class="hh-text">
+      <h3>HAPPY HOUR FUTBOLERO</h3>
+      <p>30 min antes y después de cada partido: precios especiales en combos seleccionados.</p>
+    </div>
+    <div class="hh-badge">
+      <div class="hb1">2x1</div>
+      <div class="hb2">Hot Dogs</div>
+    </div>
+  </div>
+
+  <!-- WA -->
+  <a class="wa-btn" href="https://wa.me/593968947936">
+    📱 ESCRÍBENOS AL WHATSAPP: 096-894-7936
+  </a>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer-dark">
+  <div class="fd-item"><div class="fd-label">📍 Dirección</div><div class="fd-val">Nelson López 7-25</div></div>
+  <div class="fd-item"><div class="fd-label">📍 Barrio</div><div class="fd-val">10 de Agosto</div></div>
+</div>
+
+</body>
+</html>
